@@ -1,38 +1,126 @@
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
+
+// Initialize Supabase client
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 // Form submission handling
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact-form');
+    const waitlistForm = document.getElementById('waitlistForm');
     
-    contactForm.addEventListener('submit', function(e) {
+    // Handle contact form submission
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Get form data
         const formData = new FormData(contactForm);
         const name = formData.get('name');
+        const email = formData.get('email');
         
-        // Create thank you content
-        const thankYouContent = `
-            <div class="thank-you-content">
-                <div class="checkmark-circle">
-                    <div class="checkmark"></div>
+        try {
+            // Insert data into Supabase
+            const { data, error } = await supabaseClient
+                .from('contact_requests')
+                .insert([
+                    { name, email, type: 'call_booking' }
+                ]);
+
+            if (error) throw error;
+            
+            // Show thank you message
+            const thankYouContent = `
+                <div class="thank-you-content">
+                    <div class="checkmark-circle">
+                        <div class="checkmark"></div>
+                    </div>
+                    <h3>Thank you, ${name}!</h3>
+                    <p>We'll be in touch with you shortly.</p>
                 </div>
-                <h3>Thank you, ${name}!</h3>
-                <p>We'll be in touch with you shortly.</p>
-            </div>
-        `;
+            `;
+            
+            contactForm.classList.add('fade-out');
+            
+            setTimeout(() => {
+                contactForm.innerHTML = thankYouContent;
+                contactForm.classList.remove('fade-out');
+                contactForm.classList.add('fade-in');
+            }, 300);
+        } catch (error) {
+            console.error('Error:', error);
+            alert('There was an error submitting your request. Please try again.');
+        }
+    });
+    
+    // Handle waitlist form submission
+    waitlistForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
         
-        // Add animation class
-        contactForm.classList.add('fade-out');
+        const formData = new FormData(waitlistForm);
+        const name = formData.get('fullName');
+        const email = formData.get('email');
         
-        // Replace content after fade out
-        setTimeout(() => {
-            contactForm.innerHTML = thankYouContent;
-            contactForm.classList.remove('fade-out');
-            contactForm.classList.add('fade-in');
-        }, 300);
+        try {
+            // Insert data into Supabase
+            const { data, error } = await supabaseClient
+                .from('waitlist')
+                .insert([
+                    { name, email }
+                ]);
+
+            if (error) throw error;
+            
+            // Show thank you message
+            const thankYouContent = `
+                <div class="thank-you-content">
+                    <div class="checkmark-circle">
+                        <div class="checkmark"></div>
+                    </div>
+                    <h3>Thank you, ${name}!</h3>
+                    <p>You've been added to the waitlist.</p>
+                </div>
+            `;
+            
+            const modalForm = modal.querySelector('.modal-form');
+            modalForm.classList.add('fade-out');
+            
+            setTimeout(() => {
+                modalForm.innerHTML = thankYouContent;
+                modalForm.classList.remove('fade-out');
+                modalForm.classList.add('fade-in');
+                
+                setTimeout(closeModal, 2000);
+            }, 300);
+        } catch (error) {
+            console.error('Error:', error);
+            alert('There was an error joining the waitlist. Please try again.');
+        }
     });
 });
 
-// Smooth scrolling for navigation links
+// Modal functionality
+const modal = document.getElementById('waitlistModal');
+const joinButtons = document.querySelectorAll('.cta-button, .nav-cta-button');
+
+joinButtons.forEach(button => {
+    if (button.closest('form')) return;
+    button.addEventListener('click', () => {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        closeModal();
+    }
+});
+
+function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    document.getElementById('waitlistForm').reset();
+}
+
+// Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -46,7 +134,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Active navigation link highlighting
+// Navigation highlighting
 window.addEventListener('scroll', function() {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-links a');
@@ -66,63 +154,4 @@ window.addEventListener('scroll', function() {
             link.classList.add('active');
         }
     });
-});
-
-// Waitlist Modal Functionality
-const modal = document.getElementById('waitlistModal');
-const waitlistForm = document.getElementById('waitlistForm');
-const joinButtons = document.querySelectorAll('.cta-button, .nav-cta-button');
-
-// Open modal when any join button is clicked
-joinButtons.forEach(button => {
-    if (button.closest('form')) return; // Skip buttons inside forms
-    button.addEventListener('click', () => {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
-    });
-});
-
-// Close modal when clicking outside
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        closeModal();
-    }
-});
-
-function closeModal() {
-    modal.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
-    waitlistForm.reset(); // Clear form
-}
-
-// Handle form submission
-waitlistForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(waitlistForm);
-    const name = formData.get('fullName');
-    
-    // Replace form with thank you message
-    const thankYouContent = `
-        <div class="thank-you-content">
-            <div class="checkmark-circle">
-                <div class="checkmark"></div>
-            </div>
-            <h3>Thank you, ${name}!</h3>
-            <p>You've been added to the waitlist.</p>
-        </div>
-    `;
-    
-    const modalForm = modal.querySelector('.modal-form');
-    modalForm.classList.add('fade-out');
-    
-    setTimeout(() => {
-        modalForm.innerHTML = thankYouContent;
-        modalForm.classList.remove('fade-out');
-        modalForm.classList.add('fade-in');
-        
-        // Close modal after showing thank you message
-        setTimeout(closeModal, 2000);
-    }, 300);
 }); 
