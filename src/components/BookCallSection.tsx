@@ -1,31 +1,46 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../config';
-
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { API_BASE_URL } from '../config';
+import CustomDateTimePicker from './CustomDateTimePicker';
 
 export default function BookCallSection() {
-  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', callDate: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedName, setSubmittedName] = useState('');
+  const [isDateTimePickerOpen, setIsDateTimePickerOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabaseClient
-        .from('contact_requests')
-        .insert([{
+      if (!formData.callDate) {
+        alert('Please select a preferred call date and time.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/calls/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          type: 'call_booking'
-        }]);
+          call_date: new Date(formData.callDate).toISOString()
+        }),
+      });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to book call');
+      }
+
+      const result = await response.json();
+      console.log('Call booking successful:', result);
 
       setSubmittedName(formData.name);
       setIsSubmitted(true);
@@ -41,6 +56,27 @@ export default function BookCallSection() {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
+    });
+  };
+
+  const handleDateTimeSelect = (dateTime: string) => {
+    setFormData({
+      ...formData,
+      callDate: dateTime
+    });
+  };
+
+  const formatDisplayDate = (dateTime: string) => {
+    if (!dateTime) return '';
+    const date = new Date(dateTime);
+    return date.toLocaleString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
     });
   };
 
@@ -79,8 +115,21 @@ export default function BookCallSection() {
                   disabled={isSubmitting}
                 />
               </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="callDate"
+                  placeholder="Choose a Date and Time Here"
+                  value={formatDisplayDate(formData.callDate)}
+                  onClick={() => setIsDateTimePickerOpen(true)}
+                  readOnly
+                  required
+                  disabled={isSubmitting}
+                  style={{ cursor: 'pointer' }}
+                />
+              </div>
               <button type="submit" className="cta-button" disabled={isSubmitting}>
-                {isSubmitting ? 'Submitting...' : 'Continue'}
+                {isSubmitting ? 'Submitting...' : 'Book Call'}
               </button>
             </form>
           ) : (
@@ -96,6 +145,13 @@ export default function BookCallSection() {
           )}
         </div>
       </div>
+      
+      <CustomDateTimePicker
+        isOpen={isDateTimePickerOpen}
+        onClose={() => setIsDateTimePickerOpen(false)}
+        onSelect={handleDateTimeSelect}
+        selectedDateTime={formData.callDate}
+      />
     </section>
   );
 }

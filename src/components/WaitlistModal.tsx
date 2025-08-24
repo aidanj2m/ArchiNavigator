@@ -1,10 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../config';
-
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { API_BASE_URL } from '../config';
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -39,14 +36,24 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabaseClient
-        .from('waitlist')
-        .insert([{
-          name: formData.fullName,
+      const response = await fetch(`${API_BASE_URL}/signup/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          full_name: formData.fullName,
           email: formData.email
-        }]);
+        }),
+      });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to join waitlist');
+      }
+
+      const result = await response.json();
+      console.log('Signup successful:', result);
 
       setSubmittedName(formData.fullName);
       setIsSubmitted(true);
