@@ -51,11 +51,11 @@ export default function BookCallSection() {
           <span>BOOK A CALL</span>
         </div>
         <h2>Our Team is Ready<br />to Help You</h2>
-        <p>We're here to answer any questions, get personalized support whenever you need.</p>
+        <p>We&apos;re here to answer any questions, get personalized support whenever you need.</p>
         <div className="contact-form-container">
           {!isSubmitted ? (
             <form className="contact-form" onSubmit={handleSubmit}>
-              <h3>In this one-on-one call with us, you'll discover if we fit best with your situation.</h3>
+              <h3>In this one-on-one call with us, you&apos;ll discover if we fit best with your situation.</h3>
               <p className="form-note">This call is <strong>not</strong> for existing users.</p>
               <div className="form-group">
                 <input
@@ -90,7 +90,7 @@ export default function BookCallSection() {
                   <div className="checkmark"></div>
                 </div>
                 <h3>Thank you, {submittedName}!</h3>
-                <p>We'll be in touch with you shortly.</p>
+                <p>We&apos;ll be in touch with you shortly.</p>
               </div>
             </div>
           )}

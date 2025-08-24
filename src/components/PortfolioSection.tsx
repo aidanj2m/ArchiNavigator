@@ -7,7 +7,7 @@ export default function PortfolioSection() {
     <section id="portfolio-section">
       <div className="portfolio-content">
         <div className="info-banner">
-          <span>WHAT'S INCLUDED</span>
+          <span>WHAT&apos;S INCLUDED</span>
         </div>
         <h2>The Best Way To Start<br />Your College Portfolio</h2>
         <p>

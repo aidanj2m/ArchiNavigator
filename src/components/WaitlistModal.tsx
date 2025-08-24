@@ -119,7 +119,7 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                 <div className="checkmark"></div>
               </div>
               <h3>Thank you, {submittedName}!</h3>
-              <p>You've been added to the waitlist.</p>
+              <p>You&apos;ve been added to the waitlist.</p>
             </div>
           )}
         </div>
