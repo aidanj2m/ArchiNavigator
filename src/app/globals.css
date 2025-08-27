@@ -11,7 +11,7 @@
 }
 
 body {
-    font-family: 'Helvetica', Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--cream-color);
@@ -439,6 +439,117 @@ nav {
     margin-top: 4rem;
     margin-bottom: 8rem;
     text-align: center;
+}
+
+/* Coaching Section */
+#coaching-section {
+    background: var(--cream-color);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 0;
+    margin-top: -20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.coaching-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 2rem 150px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.coaching-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+.coaching-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Floating Logos */
+.floating-logos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.floating-logos div {
+    position: absolute;
+    opacity: 0.8;
+    filter: none;
+    transition: all 0.3s ease;
+}
+
+.floating-logos div img {
+    object-fit: contain;
+}
+
+/* Left side logos */
+.logo-left.logo-1 {
+    top: 15%;
+    left: 15%;
+    animation: float-slow 8s ease-in-out infinite;
+}
+
+.logo-left.logo-3 {
+    top: 45%;
+    left: 18%;
+    animation: float-slow 12s ease-in-out infinite reverse;
+}
+
+.logo-left.logo-5 {
+    top: 50%;
+    left: 80%;
+    animation: float-slow 10s ease-in-out infinite;
+}
+
+.logo-left.logo-7 {
+    top: 80%;
+    left: 23%;
+    animation: float-slow 14s ease-in-out infinite reverse;
+}
+
+/* Right side logos */
+.logo-right.logo-2 {
+    top: 20%;
+    right: 15%;
+    animation: float-slow 9s ease-in-out infinite reverse;
+}
+
+.logo-right.logo-4 {
+    top: 73%;
+    right: 83%;
+    animation: float-slow 11s ease-in-out infinite;
+}
+
+.logo-right.logo-6 {
+    top: 80%;
+    right: 12%;
+    animation: float-slow 13s ease-in-out infinite reverse;
+}
+
+@keyframes float-slow {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(2deg);
+    }
 }
 
 /* Book Call Section */
@@ -1033,6 +1144,7 @@ footer {
     .value-content h2,
     .portfolio-content h2,
     .ultimate-content h2,
+    .coaching-content h2,
     .book-call-content h2 {
         font-size: 2.5rem;
     }
@@ -1040,8 +1152,54 @@ footer {
     .value-content p,
     .portfolio-content p,
     .ultimate-content p,
+    .coaching-content p,
     .book-call-content p {
         font-size: 0.9rem;
+    }
+
+    /* Mobile floating logos */
+    .floating-logos div {
+        opacity: 0.4;
+    }
+    
+    .floating-logos div img {
+        width: 79px !important;
+        height: 79px !important;
+    }
+    
+    .logo-left.logo-1 {
+        top: 10%;
+        left: 8%;
+    }
+    
+    .logo-left.logo-3 {
+        top: 40%;
+        left: 12%;
+    }
+    
+    .logo-left.logo-5 {
+        top: 70%;
+        left: 6%;
+    }
+    
+    .logo-left.logo-7 {
+        top: 85%;
+        left: 15%;
+    }
+    
+    .logo-right.logo-2 {
+        top: 15%;
+        right: 8%;
+    }
+    
+    .logo-right.logo-4 {
+        top: 45%;
+        right: 12%;
+    }
+    
+    .logo-right.logo-6 {
+        top: 75%;
+        right: 6%;
     }
 
     .chart-image,
