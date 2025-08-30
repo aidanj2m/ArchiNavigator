@@ -17,7 +17,16 @@ export default function CustomDateTimePicker({
 }: CustomDateTimePickerProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState({ hour: 9, minute: 0, period: 'AM' });
+  const [selectedTime, setSelectedTime] = useState<{ hour: number; minute: number; period: 'AM' | 'PM' }>({ hour: 10, minute: 0, period: 'AM' });
+
+  const getValidHours = (period: 'AM' | 'PM'): number[] => {
+    // Business hours: 10am to 11pm
+    if (period === 'AM') {
+      return [10, 11, 12]; // 10am, 11am, 12pm (noon)
+    } else {
+      return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // 1pm through 11pm
+    }
+  };
 
   useEffect(() => {
     if (selectedDateTime && selectedDateTime !== '') {
@@ -27,10 +36,18 @@ export default function CustomDateTimePicker({
       
       let hour = date.getHours();
       const minute = date.getMinutes();
-      const period = hour >= 12 ? 'PM' : 'AM';
+      let period: 'AM' | 'PM' = hour >= 12 ? 'PM' : 'AM';
       
       if (hour === 0) hour = 12;
       else if (hour > 12) hour -= 12;
+      
+      // Validate that the time is within business hours (10am-11pm)
+      const validHours = getValidHours(period);
+      if (!validHours.includes(hour)) {
+        // If outside business hours, default to 10 AM
+        hour = 10;
+        period = 'AM';
+      }
       
       setSelectedTime({ hour, minute, period });
     }
@@ -66,10 +83,22 @@ export default function CustomDateTimePicker({
   };
 
   const handleTimeChange = (type: 'hour' | 'minute' | 'period', value: string) => {
-    setSelectedTime(prev => ({
-      ...prev,
-      [type]: type === 'period' ? value : parseInt(value)
-    }));
+    setSelectedTime(prev => {
+      const newTime = {
+        ...prev,
+        [type]: type === 'period' ? value : parseInt(value)
+      };
+      
+      // If period changes, validate and adjust hour if needed
+      if (type === 'period') {
+        const validHours = getValidHours(value as 'AM' | 'PM');
+        if (!validHours.includes(newTime.hour)) {
+          newTime.hour = validHours[0]; // Set to first valid hour
+        }
+      }
+      
+      return newTime;
+    });
   };
 
   const handleConfirm = () => {
@@ -94,7 +123,7 @@ export default function CustomDateTimePicker({
 
   const handleClear = () => {
     setSelectedDate(null);
-    setSelectedTime({ hour: 9, minute: 0, period: 'AM' });
+    setSelectedTime({ hour: 10, minute: 0, period: 'AM' });
     onSelect('');
     onClose();
   };
@@ -170,7 +199,7 @@ export default function CustomDateTimePicker({
               onChange={(e) => handleTimeChange('hour', e.target.value)}
               className="datetime-time-select"
             >
-              {Array.from({ length: 12 }, (_, i) => i + 1).map(hour => (
+              {getValidHours(selectedTime.period).map(hour => (
                 <option key={hour} value={hour}>{hour.toString().padStart(2, '0')}</option>
               ))}
             </select>
