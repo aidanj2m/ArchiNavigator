@@ -13,7 +13,7 @@ export default function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
       
       <section id="hero">
         <div className="hero-content">
-          <h1>Put Together the <strong>Strongest</strong> College Portfolio</h1>
+          <h1>Piece Together the <strong>Strongest</strong> College Portfolio</h1>
           <p>Learn the design process of architecture as just a high school student</p>
           <button className="cta-button" onClick={onJoinWaitlist}>Join Waitlist</button>
         </div>

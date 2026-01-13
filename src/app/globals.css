@@ -387,59 +387,6 @@ nav {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
 }
 
-/* Ultimate Section */
-#ultimate-section {
-    min-height: 100vh;
-    background: var(--cream-color);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 0;
-    margin-top: -20px;
-}
-
-.ultimate-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 60px 2rem 0;
-    text-align: center;
-}
-
-.ultimate-content h2 {
-    font-size: 3.5rem;
-    margin-bottom: 2rem;
-    line-height: 1.2;
-    font-weight: 400;
-}
-
-.ultimate-content p {
-    font-size: 1rem;
-    line-height: 1.6;
-    opacity: 0.9;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.service-chart-container {
-    margin-top: 4rem;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.service-chart-image {
-    max-width: 100%;
-    height: auto;
-    width: 800px;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
-}
-
-.ultimate-cta-container {
-    margin-top: 4rem;
-    margin-bottom: 8rem;
-    text-align: center;
-}
 
 /* Coaching Section */
 #coaching-section {
@@ -1143,7 +1090,6 @@ footer {
 
     .value-content h2,
     .portfolio-content h2,
-    .ultimate-content h2,
     .coaching-content h2,
     .book-call-content h2 {
         font-size: 2.5rem;
@@ -1151,7 +1097,6 @@ footer {
 
     .value-content p,
     .portfolio-content p,
-    .ultimate-content p,
     .coaching-content p,
     .book-call-content p {
         font-size: 0.9rem;
@@ -1202,8 +1147,7 @@ footer {
         right: 6%;
     }
 
-    .chart-image,
-    .service-chart-image {
+    .chart-image {
         width: 100%;
         padding: 0 1rem;
     }

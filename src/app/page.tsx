@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
 import ValuePropSection from '../components/ValuePropSection';
 import PortfolioSection from '../components/PortfolioSection';
-import UltimateSection from '../components/UltimateSection';
 import CoachingSection from '../components/CoachingSection';
 import BookCallSection from '../components/BookCallSection';
 import WaitlistModal from '../components/WaitlistModal';
@@ -29,7 +28,6 @@ export default function Home() {
         <HeroSection onJoinWaitlist={handleJoinWaitlist} />
         <ValuePropSection onJoinWaitlist={handleJoinWaitlist} />
         <PortfolioSection />
-        <UltimateSection onJoinWaitlist={handleJoinWaitlist} />
         <CoachingSection />
         <BookCallSection />
       </main>
