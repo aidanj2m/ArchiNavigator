@@ -4,6 +4,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "ArchiNavigator",
   description: "Put Together the Strongest College Portfolio - Learn the design process of architecture as just a high school student",
+  icons: {
+    icon: '/ArchiNavLogo.png',
+    apple: '/ArchiNavLogo.png',
+  },
 };
 
 export default function RootLayout({
