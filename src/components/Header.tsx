@@ -3,10 +3,10 @@
 import Image from 'next/image';
 
 interface HeaderProps {
-  onJoinWaitlist: () => void;
+  onSignup: () => void;
 }
 
-export default function Header({ onJoinWaitlist }: HeaderProps) {
+export default function Header({ onSignup }: HeaderProps) {
   return (
     <header>
       <nav>
@@ -19,7 +19,7 @@ export default function Header({ onJoinWaitlist }: HeaderProps) {
             <span>Join as an <strong>Early</strong> student and collect this offer!</span>
           </li>
         </ul>
-        <button className="nav-cta-button" onClick={onJoinWaitlist}>
+        <button className="nav-cta-button" onClick={onSignup}>
           GET STARTED ASAP
         </button>
       </nav>

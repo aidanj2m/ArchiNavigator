@@ -7,26 +7,26 @@ import ValuePropSection from '../components/ValuePropSection';
 import PortfolioSection from '../components/PortfolioSection';
 import CoachingSection from '../components/CoachingSection';
 import BookCallSection from '../components/BookCallSection';
-import WaitlistModal from '../components/WaitlistModal';
+import SignupModal from '../components/SignupModal';
 
 export default function Home() {
-  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
-  const handleJoinWaitlist = () => {
-    setIsWaitlistModalOpen(true);
+  const handleSignup = () => {
+    setIsSignupModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsWaitlistModalOpen(false);
+    setIsSignupModalOpen(false);
   };
 
   return (
     <>
-      <Header onJoinWaitlist={handleJoinWaitlist} />
+      <Header onSignup={handleSignup} />
       
       <main>
-        <HeroSection onJoinWaitlist={handleJoinWaitlist} />
-        <ValuePropSection onJoinWaitlist={handleJoinWaitlist} />
+        <HeroSection onSignup={handleSignup} />
+        <ValuePropSection onSignup={handleSignup} />
         <PortfolioSection />
         <CoachingSection />
         <BookCallSection />
@@ -36,8 +36,8 @@ export default function Home() {
         <p>&copy; 2025 ArchiNavigator. All rights reserved.</p>
       </footer>
 
-      <WaitlistModal 
-        isOpen={isWaitlistModalOpen} 
+      <SignupModal 
+        isOpen={isSignupModalOpen} 
         onClose={handleCloseModal} 
       />
     </>

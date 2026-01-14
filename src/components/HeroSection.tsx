@@ -1,10 +1,10 @@
 'use client';
 
 interface HeroSectionProps {
-  onJoinWaitlist: () => void;
+  onSignup: () => void;
 }
 
-export default function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
+export default function HeroSection({ onSignup }: HeroSectionProps) {
   return (
     <>
       <div className="offer-banner">
@@ -15,7 +15,7 @@ export default function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
         <div className="hero-content">
           <h1>Piece Together the <strong>Strongest</strong> College Portfolio</h1>
           <p>Learn the design process of architecture as just a high school student</p>
-          <button className="cta-button" onClick={onJoinWaitlist}>Join Waitlist</button>
+          <button className="cta-button" onClick={onSignup}>Sign up Today!</button>
         </div>
         <div className="cube-container">
           <div className="cube">

@@ -919,25 +919,43 @@ nav {
     box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
 }
 
-/* Waitlist Modal */
-.waitlist-modal {
+/* Signup Modal */
+.signup-modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0);
     z-index: 2000;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(0px);
 }
 
-.waitlist-modal.active {
+.signup-modal.active {
     display: flex;
     opacity: 1;
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    animation: fadeInBackdrop 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInBackdrop {
+    from {
+        opacity: 0;
+        background: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+    }
 }
 
 .modal-content {
@@ -947,14 +965,31 @@ nav {
     width: 90%;
     max-width: 500px;
     position: relative;
-    transform: translateY(-20px);
-    transition: transform 0.3s ease;
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 1px solid rgba(139, 115, 85, 0.3);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.waitlist-modal.active .modal-content {
-    transform: translateY(0);
+.signup-modal.active .modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    animation: modalBounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalBounceIn {
+    0% {
+        transform: scale(0.8) translateY(30px);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.02) translateY(-5px);
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
 }
 
 .modal-form h3 {
@@ -963,10 +998,47 @@ nav {
     text-align: center;
     color: var(--text-color);
     font-weight: 400;
+    opacity: 0;
+    animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+}
+
+.modal-form p {
+    opacity: 0;
+    animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
 }
 
 .modal-form .form-group {
     margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.modal-form .form-group:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.modal-form .form-group:nth-child(3) {
+    animation-delay: 0.25s;
+}
+
+.modal-form .form-group:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.modal-form .cta-button {
+    opacity: 0;
+    animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.35s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modal-form input {
@@ -977,7 +1049,7 @@ nav {
     border-radius: 12px;
     background: var(--cream-color);
     color: var(--text-color);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modal-form input::placeholder {
@@ -988,6 +1060,7 @@ nav {
     outline: none;
     border-color: rgba(139, 115, 85, 0.6);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
 }
 
 .modal-form input:disabled {

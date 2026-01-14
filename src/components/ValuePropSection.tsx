@@ -3,10 +3,10 @@
 import Image from 'next/image';
 
 interface ValuePropSectionProps {
-  onJoinWaitlist: () => void;
+  onSignup: () => void;
 }
 
-export default function ValuePropSection({ onJoinWaitlist }: ValuePropSectionProps) {
+export default function ValuePropSection({ onSignup }: ValuePropSectionProps) {
   return (
     <section id="value-prop">
       <div className="value-content">
@@ -30,7 +30,7 @@ export default function ValuePropSection({ onJoinWaitlist }: ValuePropSectionPro
           />
         </div>
         <div className="value-cta-container">
-          <button className="cta-button" onClick={onJoinWaitlist}>Join Waitlist</button>
+          <button className="cta-button" onClick={onSignup}>Sign up Today!</button>
         </div>
       </div>
     </section>

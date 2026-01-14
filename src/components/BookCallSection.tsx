@@ -30,7 +30,8 @@ export default function BookCallSection() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          call_date: new Date(formData.callDate).toISOString()
+          call_date: new Date(formData.callDate).toISOString(),
+          call_type: 'questions'
         }),
       });
 
