@@ -8,7 +8,7 @@ export default function HeroSection({ onSignup }: HeroSectionProps) {
   return (
     <>
       <div className="offer-banner">
-        <span>LIMITED TIME OFFER</span>
+        <span>BUILD YOUR PORTFOLIO</span>
       </div>
       
       <section id="hero">
