@@ -20,11 +20,11 @@ export default function CustomDateTimePicker({
   const [selectedTime, setSelectedTime] = useState<{ hour: number; minute: number; period: 'AM' | 'PM' }>({ hour: 10, minute: 0, period: 'AM' });
 
   const getValidHours = (period: 'AM' | 'PM'): number[] => {
-    // Business hours: 10am to 11pm
+    // Business hours: 10am to 8pm
     if (period === 'AM') {
-      return [10, 11, 12]; // 10am, 11am, 12pm (noon)
+      return [10, 11]; // 10am, 11am
     } else {
-      return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // 1pm through 11pm
+      return [12, 1, 2, 3, 4, 5, 6, 7, 8]; // 12pm (noon) through 8pm
     }
   };
 
@@ -41,7 +41,7 @@ export default function CustomDateTimePicker({
       if (hour === 0) hour = 12;
       else if (hour > 12) hour -= 12;
       
-      // Validate that the time is within business hours (10am-11pm)
+      // Validate that the time is within business hours (10am-8pm)
       const validHours = getValidHours(period);
       if (!validHours.includes(hour)) {
         // If outside business hours, default to 10 AM
