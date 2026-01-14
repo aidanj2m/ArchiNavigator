@@ -36,7 +36,7 @@ export default function CoachingSection() {
         </div>
         <h2>Learn From the Best</h2>
         <p>
-          Have 1:1 PERSONAL coaching from students accepted to the TOP architecture school in the WORLD. 
+          Have 1:1 PERSONAL coaching from students accepted to TOP architecture institutions. 
           We know how to deliver the highest quality projects and to prepare young students for the 
           college application process.
         </p>
