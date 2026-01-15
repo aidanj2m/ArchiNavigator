@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 interface ValuePropSectionProps {
@@ -32,21 +32,51 @@ const slides = [
 
 export default function ValuePropSection({ onSignup }: ValuePropSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoAdvanceDelay, setAutoAdvanceDelay] = useState(7000);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return; // Don't start timer until section is visible
+
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // Change slide every 5 seconds
+      setAutoAdvanceDelay(7000); // Reset to normal speed after auto-advance
+    }, autoAdvanceDelay);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [autoAdvanceDelay, currentSlide, isVisible]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
+    setAutoAdvanceDelay(20000); // Wait 20 seconds after manual click
   };
 
   return (
-    <section id="value-prop">
+    <section id="value-prop" ref={sectionRef}>
       <div className="value-content">
         <div className="info-banner">
           <span>HOW ARCHINAVIGATOR WORKS</span>
