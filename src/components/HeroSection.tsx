@@ -16,8 +16,7 @@ export default function HeroSection({ onSignup }: HeroSectionProps) {
       <section id="hero">
         <div className="hero-content">
           <h1>Piece Together the <strong>Strongest</strong> College Portfolio</h1>
-          <p>Learn the design process of architecture as just a high school student</p>
-          <button className="cta-button" onClick={onSignup}>Sign up Today!</button>
+          <p>Learn the design process of an architect as a high school student</p>
         </div>
         <div className="hero-image-container">
           <Image 

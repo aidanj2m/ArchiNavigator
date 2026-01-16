@@ -429,9 +429,9 @@ nav {
 }
 
 .coaching-content {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 60px 2rem 150px;
+    padding: 60px 2rem 100px;
     text-align: center;
     position: relative;
     z-index: 2;
@@ -524,6 +524,47 @@ nav {
     }
     50% {
         transform: translateY(-15px) rotate(2deg);
+    }
+}
+
+/* Logo Marquee */
+.logo-marquee {
+    margin-top: 4rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.logo-marquee-track {
+    display: flex;
+    gap: 6rem;
+    animation: marquee 30s linear infinite;
+    width: fit-content;
+}
+
+.logo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.logo-item:hover {
+    opacity: 1;
+}
+
+.logo-item img {
+    object-fit: contain;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
     }
 }
 
@@ -1263,9 +1304,18 @@ footer {
         padding-bottom: 4rem;
     }
 
-    /* Hide floating logos on mobile to prevent overlap */
-    .floating-logos {
-        display: none;
+    /* Mobile logo marquee adjustments */
+    .logo-marquee {
+        margin-top: 3rem;
+    }
+    
+    .logo-marquee-track {
+        gap: 4rem;
+    }
+    
+    .logo-item img {
+        width: 80px !important;
+        height: 80px !important;
     }
 
     .chart-container {
