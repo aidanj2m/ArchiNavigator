@@ -81,11 +81,12 @@ export default function ValuePropSection({ onSignup }: ValuePropSectionProps) {
         <div className="info-banner">
           <span>HOW ARCHINAVIGATOR WORKS</span>
         </div>
-        <h2>You Only Pay For The Projects<br />& Get The Education For FREE</h2>
+        <h2>Premium Projects. Expert Mentorship. Lower Costs.</h2>
         <p>
-          Everyone in college counseling sells you just their guidance for 5,000 to 20,000 dollars. 
-          With ArchiNavigator, for a way smaller fee, you get a high quality project + the weekly 
-          30-minute sessions (the education) for FREE
+        Most counselors charge upwards of $5,000 for simple guidance. ArchiNavigator 
+        flips the script. You pay for the project development, and the 1-on-1 education 
+        is included. You get the same level of expertise as top-tier counseling with a focus 
+        on creating a stunning physical portfolio.
         </p>
         
         <div className="slideshow-container">
@@ -122,10 +123,6 @@ export default function ValuePropSection({ onSignup }: ValuePropSectionProps) {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="value-cta-container">
-          <button className="cta-button" onClick={onSignup}>Sign up Today!</button>
         </div>
       </div>
     </section>
