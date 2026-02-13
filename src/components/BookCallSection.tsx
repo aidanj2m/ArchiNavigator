@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { API_BASE_URL } from '../config';
 import CustomDateTimePicker from './CustomDateTimePicker';
 
 export default function BookCallSection() {
@@ -22,7 +21,7 @@ export default function BookCallSection() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/calls/`, {
+      const response = await fetch('/api/calls', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

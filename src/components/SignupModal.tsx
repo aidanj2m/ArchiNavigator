@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { API_BASE_URL } from '../config';
 import CustomDateTimePicker from './CustomDateTimePicker';
 
 interface SignupModalProps {
@@ -44,7 +43,7 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/calls/`, {
+      const response = await fetch('/api/calls', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
